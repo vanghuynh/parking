@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Init data Parking Table
+    -->
+    <changeSet id="002-load-parking-data" author="Huynh Vang">
+        <loadData
+                  file="db/data/hdb-carpark-information.csv"
+                  separator=","
+                  tableName="parking">
+            <column name="id" type="numeric"/>
+            <column name="address" type="string"/>
+            <column name="x_coord" type="numeric"/>
+            <column name="y_coord" type="numeric"/>
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>
