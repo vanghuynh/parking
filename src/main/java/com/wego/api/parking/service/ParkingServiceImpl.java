@@ -1,25 +1,24 @@
 package com.wego.api.parking.service;
 
-import com.wego.api.parking.dto.CarparkItem;
 import com.wego.api.parking.dto.CarparkResponse;
 import com.wego.api.parking.dto.CoordinateConversionResponse;
+import com.wego.api.parking.dto.ParkingItemResponse;
 import com.wego.api.parking.model.Parking;
 import com.wego.api.parking.repositories.ParkingRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service("parkingService")
@@ -114,6 +113,23 @@ public class ParkingServiceImpl implements ParkingService {
 			});
 		}
 		return parkingRepository.findAll();
+	}
+
+	@Override
+	public List<ParkingItemResponse> findNearestParkingList(Integer page, Integer perPage, String latitude, String longitude) {
+		List<Parking> parkingList = parkingRepository.findNearestParkingList(page, perPage, Double.valueOf(latitude), Double.valueOf(longitude));
+		if(parkingList != null){
+			return parkingList.stream().map(item -> {
+				ParkingItemResponse resItem = new ParkingItemResponse();
+				resItem.setAddress(item.getAddress());
+				resItem.setLatitude(item.getxCoord());
+				resItem.setLongitude(item.getyCoord());
+				resItem.setAvailable_lots(item.getLotsAvailable());
+				resItem.setTotal_lots(item.getTotalLots());
+				return resItem;
+			}).collect(Collectors.toList());
+		}
+		return new ArrayList<ParkingItemResponse>();
 	}
 
 

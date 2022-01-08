@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/parking")
+@RequestMapping("/carparks")
 public class ParkingController {
 
 	public static final Logger logger = LoggerFactory.getLogger(ParkingController.class);
@@ -50,6 +50,15 @@ public class ParkingController {
 	@RequestMapping(value = "/update-coordinate-format", method = RequestMethod.GET)
 	public ResponseEntity<Object> updateCoordinateFormat() {
 		Object res = parkingService.updateCoordinateFormat();
+		return new ResponseEntity<Object>(res, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/nearest", method = RequestMethod.GET)
+	public ResponseEntity<Object> findNearestPath(@RequestParam int page, @RequestParam("per_page") int per_page, @RequestParam String latitude, @RequestParam String longitude) {
+		Object res = parkingService.findNearestParkingList(page, per_page, latitude, longitude);
+		if(latitude == null || longitude == null){
+			return new ResponseEntity<Object>("latitude and longitude must be available", HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<Object>(res, HttpStatus.OK);
 	}
 

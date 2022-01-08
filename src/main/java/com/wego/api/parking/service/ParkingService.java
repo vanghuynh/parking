@@ -1,5 +1,6 @@
 package com.wego.api.parking.service;
 
+import com.wego.api.parking.dto.ParkingItemResponse;
 import com.wego.api.parking.model.Parking;
 
 import java.util.List;
@@ -19,5 +20,7 @@ public interface ParkingService {
 	Object updateCarAvailability(String dateString);
 
 	Object updateCoordinateFormat();
+
+	List<ParkingItemResponse> findNearestParkingList(Integer page, Integer perPage, String latitude, String longitude);
 	
 }
