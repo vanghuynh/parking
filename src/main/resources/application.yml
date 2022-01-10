@@ -22,3 +22,8 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/master.xml
+
+  # This one is used to work round issue swagger and spring boot v2.6, https://github.com/springfox/springfox/issues/3462
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher

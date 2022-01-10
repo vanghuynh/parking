@@ -20,27 +20,6 @@ public class ParkingController {
 	@Autowired
 	ParkingService parkingService;
 
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	public ResponseEntity<List<Parking>> listAllParkings() {
-		List<Parking> parkings = parkingService.findAllParkings();
-		if (parkings.isEmpty()) {
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
-		}
-		return new ResponseEntity<List<Parking>>(parkings, HttpStatus.OK);
-	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> getParking(@PathVariable("id") Long id) {
-		logger.info("Fetching Parking with id {}", id);
-		Parking parking = parkingService.findById(id);
-		if (parking == null) {
-			logger.error("Parking with id {} not found.", id);
-			return new ResponseEntity("Parking with id " + id
-					+ " not found", HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<Parking>(parking, HttpStatus.OK);
-	}
-
 	@RequestMapping(value = "/update-car-availability", method = RequestMethod.GET)
 	public ResponseEntity<Object> updateCarAvailability(@RequestParam String dateString) {
 		Object res = parkingService.updateCarAvailability(dateString);
