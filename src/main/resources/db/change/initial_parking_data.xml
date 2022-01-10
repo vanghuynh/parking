@@ -11,7 +11,7 @@
     -->
     <changeSet id="002-load-parking-data" author="Huynh Vang">
         <loadData
-                  file="db/data/hdb-carpark-information.csv"
+                  file="db/data/parking_202201071123.csv"
                   separator=","
                   tableName="parking">
             <column name="id" type="numeric"/>
