@@ -116,8 +116,8 @@ public class ParkingServiceImpl implements ParkingService {
 	}
 
 	@Override
-	public List<ParkingItemResponse> findNearestParkingList(Integer page, Integer perPage, String latitude, String longitude) {
-		List<Parking> parkingList = parkingRepository.findNearestParkingList(page, perPage, Double.valueOf(latitude), Double.valueOf(longitude));
+	public List<ParkingItemResponse> findNearestParkingList(Integer page, Integer perPage, Double latitude, Double longitude) {
+		List<Parking> parkingList = parkingRepository.findNearestParkingList(page, perPage, latitude, longitude);
 		if(parkingList != null){
 			return parkingList.stream().map(item -> {
 				ParkingItemResponse resItem = new ParkingItemResponse();

@@ -55,7 +55,7 @@ public class ParkingController {
 
 	@RequestMapping(value = "/nearest", method = RequestMethod.GET)
 	public ResponseEntity<Object> findNearestPath(@RequestParam int page, @RequestParam("per_page") int per_page, @RequestParam String latitude, @RequestParam String longitude) {
-		Object res = parkingService.findNearestParkingList(page, per_page, latitude, longitude);
+		Object res = parkingService.findNearestParkingList(page, per_page, Double.valueOf(latitude), Double.valueOf(longitude));
 		if(latitude == null || longitude == null){
 			return new ResponseEntity<Object>("latitude and longitude must be available", HttpStatus.BAD_REQUEST);
 		}

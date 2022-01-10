@@ -21,6 +21,6 @@ public interface ParkingService {
 
 	Object updateCoordinateFormat();
 
-	List<ParkingItemResponse> findNearestParkingList(Integer page, Integer perPage, String latitude, String longitude);
+	List<ParkingItemResponse> findNearestParkingList(Integer page, Integer perPage, Double latitude, Double longitude);
 	
 }
